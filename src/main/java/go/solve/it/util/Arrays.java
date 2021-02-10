@@ -7,8 +7,12 @@ import static java.util.stream.IntStream.range;
 
 public final class Arrays {
 
-    public static long count(final char[] array, final char value) {
-        return range(0, array.length).filter(index -> array[index] == value).count();
+    public static long count(final char[] values, final char value) {
+        return range(0, values.length).filter(index -> values[index] == value).count();
+    }
+
+    public static String[] slice(final String[] values, final int fromIndex, final int toIndexExclusive) {
+        return copyOfRange(values, fromIndex, toIndexExclusive);
     }
 
     public static long[] slice(final long[] values, final int fromIndex, final int toIndexExclusive) {
@@ -23,34 +27,34 @@ public final class Arrays {
         return copyOfRange(values, 1, values.length);
     }
 
-    public static int indexOf(final int[] array, final int value) {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] == value) {
+    public static int indexOf(final int[] values, final int value) {
+        for (var i = 0; i < values.length; i++) {
+            if (values[i] == value) {
                 return i;
             }
         }
         return -1;
     }
 
-    public static int indexOf(final char[] array, final char value) {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] == value) {
+    public static int indexOf(final char[] values, final char value) {
+        for (var i = 0; i < values.length; i++) {
+            if (values[i] == value) {
                 return i;
             }
         }
         return -1;
     }
 
-    public static int lastIndexOf(final int[] numbers, final int number, final int fromIndex) {
+    public static int lastIndexOf(final int[] values, final int value, final int fromIndex) {
         for (var i = fromIndex; i >= 0; i--) {
-            if (numbers[i] == number) {
+            if (values[i] == value) {
                 return i;
             }
         }
         return -1;
     }
 
-    public static long sum(final long... memory) {
-        return LongStream.of(memory).sum();
+    public static long sum(final long... values) {
+        return LongStream.of(values).sum();
     }
 }

@@ -52,6 +52,6 @@ public final class Day7 {
     }
 
     private static Tuple<Long, String> parseBagCount(final String bagSet) {
-        return Tuple.ofSplit(bagSet, " ").mapHead(Long::parseLong);
+        return Tuple.ofPartition(bagSet, " ").mapHead(Long::parseLong);
     }
 }

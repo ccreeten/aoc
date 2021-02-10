@@ -27,6 +27,11 @@ public final class Regex {
     }
 
     // assume single capture group contained in regex and that result exists
+    public static String findNext(final String entry, final String regex) {
+        return findNext(entry, regex, 0);
+    }
+
+    // assume single capture group contained in regex and that result exists
     public static String findNext(final String entry, final String regex, final int fromIndex) {
         final var results = findAll(entry.substring(fromIndex), regex);
         if (results.isEmpty()) {

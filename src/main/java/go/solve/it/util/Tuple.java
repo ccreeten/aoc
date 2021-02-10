@@ -12,7 +12,7 @@ public sealed class Tuple<L, R> permits Tuple.IntTuple, Tuple.LongTuple {
         this.tail = tail;
     }
 
-    public static Tuple<String, String> ofSplit(final String string, final String pattern) {
+    public static Tuple<String, String> ofPartition(final String string, final String pattern) {
         final var split = string.split(pattern, 2);
         return Tuple.of(split[0], split[1]);
     }
