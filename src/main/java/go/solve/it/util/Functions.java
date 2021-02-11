@@ -6,4 +6,9 @@ public class Functions {
     public interface IntToLongBinaryOperator {
         long apply(int left, int right);
     }
+
+    @FunctionalInterface
+    public interface IntToCharBinaryOperator {
+        char apply(int left, int right);
+    }
 }

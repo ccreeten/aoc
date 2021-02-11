@@ -24,6 +24,14 @@ public final class BiStream<L, R> {
         );
     }
 
+    public static BiStream<Integer, Integer> streamPositions(final Object[][] grid) {
+        return new BiStream<>(
+                range(0, grid.length)
+                        .boxed()
+                        .flatMap(row -> range(0, grid[row].length).mapToObj(col -> Tuple.ofInts(row, col)))
+        );
+    }
+
     public static <T> BiStream<Integer, T> streamIndexed(final T... values) {
         return new BiStream<>(range(0, values.length).mapToObj(index -> Tuple.of(index, values[index])));
     }

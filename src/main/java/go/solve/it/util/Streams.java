@@ -52,4 +52,9 @@ public final class Streams {
     public static LongStream zip(final int[] left, final int[] right, final IntToLongBinaryOperator function) {
         return range(0, min(left.length, right.length)).mapToLong(index -> function.apply(left[index], right[index]));
     }
+
+    @SafeVarargs
+    public static <T> Stream<T> concat(final Stream<T> left, final T... right) {
+        return Stream.concat(left, Stream.of(right));
+    }
 }

@@ -2,6 +2,7 @@ package go.solve.it.util;
 
 import java.util.stream.LongStream;
 
+import static java.lang.System.arraycopy;
 import static java.util.Arrays.copyOfRange;
 import static java.util.stream.IntStream.range;
 
@@ -12,6 +13,10 @@ public final class Arrays {
     }
 
     public static String[] slice(final String[] values, final int fromIndex, final int toIndexExclusive) {
+        return copyOfRange(values, fromIndex, toIndexExclusive);
+    }
+
+    public static char[] slice(final char[] values, final int fromIndex, final int toIndexExclusive) {
         return copyOfRange(values, fromIndex, toIndexExclusive);
     }
 
@@ -56,5 +61,11 @@ public final class Arrays {
 
     public static long sum(final long... values) {
         return LongStream.of(values).sum();
+    }
+
+    public static char[] concat(final char[] first, final char[] second) {
+        final char[] result = java.util.Arrays.copyOf(first, first.length + second.length);
+        arraycopy(second, 0, result, first.length, second.length);
+        return result;
     }
 }
