@@ -30,6 +30,18 @@ public final class Day19 {
         return stream(messages).filter(message -> compiledRule.matcher(message).matches()).count();
     }
 
+    private static long part2(final String input) {
+        final var rules = input.split("\n\n")[0].split("\n");
+        final var messages = input.split("\n\n")[1].split("\n");
+
+        final var ruleSet = new HashMap<>(parseRules(rules));
+        ruleSet.put("8", range(1, 32).mapToObj(count -> join(" ", nCopies(count, "42"))).collect(joining(" | ")));
+        ruleSet.put("11", range(1, 32).mapToObj(count -> join(" ", nCopies(count, "42")) + " " + join(" ", nCopies(count, "31"))).collect(joining(" | ")));
+
+        final var compiledRule = Pattern.compile(toRegex(ruleSet, ruleSet.get("0")));
+        return stream(messages).filter(message -> compiledRule.matcher(message).matches()).count();
+    }
+
     private static Map<String, String> parseRules(final String... rules) {
         return stream(rules)
                 .map(rule -> rule.replaceAll("\"", ""))
@@ -44,17 +56,5 @@ public final class Day19 {
         return stream(rule.split(" \\| "))
                 .map(sequence -> stream(sequence.split(" ")).map(token -> toRegex(ruleSet, ruleSet.get(token))).collect(joining("")))
                 .collect(joining("|", "(", ")"));
-    }
-
-    private static long part2(final String input) {
-        final var rules = input.split("\n\n")[0].split("\n");
-        final var messages = input.split("\n\n")[1].split("\n");
-
-        final var ruleSet = new HashMap<>(parseRules(rules));
-        ruleSet.put("8", range(1, 32).mapToObj(count -> join(" ", nCopies(count, "42"))).collect(joining(" | ")));
-        ruleSet.put("11", range(1, 32).mapToObj(count -> join(" ", nCopies(count, "42")) + " " + join(" ", nCopies(count, "31"))).collect(joining(" | ")));
-
-        final var compiledRule = Pattern.compile(toRegex(ruleSet, ruleSet.get("0")));
-        return stream(messages).filter(message -> compiledRule.matcher(message).matches()).count();
     }
 }

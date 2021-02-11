@@ -9,6 +9,10 @@ import static java.util.Arrays.asList;
 
 public final class Collections {
 
+    public static <T> Set<T> copy(final Set<? extends T> other) {
+        return new HashSet<>(other);
+    }
+
     public static <T> Set<T> setOf(final T... values) {
         return new HashSet<>(asList(values));
     }

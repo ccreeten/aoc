@@ -1,5 +1,6 @@
 package go.solve.it;
 
+import go.solve.it.util.Collections;
 import go.solve.it.util.Input;
 import go.solve.it.util.Range;
 import go.solve.it.util.Range.IntRange;
@@ -61,9 +62,9 @@ public final class Day16 {
     private static List<Set<String>> filterPossibleFields(final List<Field> fields, final List<Ticket> tickets) {
         final var fieldNames = fields.stream().map(Field::name).collect(toSet());
         final var fieldCount = tickets.get(0).values().length;
-        final var inferred = range(0, fieldCount).<Set<String>>mapToObj(__ -> new HashSet<>(fieldNames)).collect(toList());
+        final var inferred = range(0, fieldCount).mapToObj(__ -> new HashSet<>(fieldNames)).collect(toList());
 
-        final var result = inferred.stream().<Set<String>>map(HashSet::new).collect(toList());
+        final var result = inferred.stream().map(Collections::copy).collect(toList());
         range(0, tickets.get(0).values().length).forEachOrdered(index -> tickets.forEach(ticket -> {
             final var fieldValue = ticket.values()[index];
             fields.forEach(field -> {
