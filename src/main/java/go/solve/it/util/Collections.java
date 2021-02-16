@@ -17,6 +17,12 @@ public final class Collections {
         return new HashSet<>(asList(values));
     }
 
+    public static <T> List<T> reverse(final List<? extends T> other) {
+        final var result = new ArrayList<T>(other);
+        java.util.Collections.reverse(result);
+        return result;
+    }
+
     public static <T> List<T> concat(final List<? extends T> left, final List<? extends T> right) {
         final var result = new ArrayList<T>(left.size() + right.size());
         result.addAll(left);

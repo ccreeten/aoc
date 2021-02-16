@@ -10,10 +10,6 @@ public sealed class Range<T extends Comparable<T>> permits Range.IntRange {
         this.toInclusive = toInclusive;
     }
 
-    public static <T extends Comparable<T>> Range<T> between(final T from, final T toInclusive) {
-        return new Range<>(from, toInclusive);
-    }
-
     public static IntRange between(final int from, final int toInclusive) {
         return new IntRange(from, toInclusive);
     }

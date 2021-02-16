@@ -66,8 +66,7 @@ public final class Day17 {
                     .flatMap(position -> deltas.stream().map(position::add))
                     .collect(toSet());
 
-            final var cubesToActivate = new ArrayList<P>();
-            final var cubesToDeactivate = new ArrayList<P>();
+            final var cubesToFlip = new ArrayList<P>();
             positionsToCheck.forEach(position -> {
                 final var activeNeighbours = deltas.stream()
                         .map(position::add)
@@ -76,14 +75,17 @@ public final class Day17 {
 
                 if (activeCubes.contains(position)) {
                     if (activeNeighbours != 2 && activeNeighbours != 3) {
-                        cubesToDeactivate.add(position);
+                        cubesToFlip.add(position);
                     }
                 } else if (activeNeighbours == 3) {
-                    cubesToActivate.add(position);
+                    cubesToFlip.add(position);
                 }
             });
-            cubesToDeactivate.forEach(activeCubes::remove);
-            activeCubes.addAll(cubesToActivate);
+            cubesToFlip.forEach(cube -> {
+                if (!activeCubes.remove(cube)) {
+                    activeCubes.add(cube);
+                }
+            });
         }
         return activeCubes.size();
     }

@@ -2,13 +2,16 @@ package go.solve.it;
 
 import go.solve.it.util.Input;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
 
 import static go.solve.it.util.Collections.copy;
+import static go.solve.it.util.Collectors.toDeque;
 import static go.solve.it.util.Regex.findAll;
 import static go.solve.it.util.Regex.findNext;
 import static java.lang.Long.parseLong;
-import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.LongStream.range;
 
 public final class Day22 {
@@ -83,14 +86,12 @@ public final class Day22 {
 
         static Player parse(final String deck) {
             final var id = parseLong(findNext(deck, "(\\d)"));
-            final var cards = findAll(deck.split(":")[1], "(\\d+)").stream()
-                    .map(Long::parseLong)
-                    .collect(toCollection(ArrayDeque::new));
+            final var cards = findAll(deck.split(":")[1], "(\\d+)").stream().map(Long::parseLong).collect(toDeque());
             return new Player(id, cards);
         }
 
         Player sub(final long count) {
-            return new Player(id, deck.stream().limit(count).collect(toCollection(ArrayDeque::new)));
+            return new Player(id, deck.stream().limit(count).collect(toDeque()));
         }
 
         long hash() {

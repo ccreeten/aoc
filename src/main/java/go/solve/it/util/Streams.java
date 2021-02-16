@@ -1,6 +1,6 @@
 package go.solve.it.util;
 
-import go.solve.it.util.Functions.IntToLongBinaryOperator;
+import go.solve.it.util.Functions.BinaryIntToLongFunction;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +49,7 @@ public final class Streams {
                 .flatMapToLong(identity());
     }
 
-    public static LongStream zip(final int[] left, final int[] right, final IntToLongBinaryOperator function) {
+    public static LongStream zip(final int[] left, final int[] right, final BinaryIntToLongFunction function) {
         return range(0, min(left.length, right.length)).mapToLong(index -> function.apply(left[index], right[index]));
     }
 

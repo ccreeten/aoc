@@ -20,6 +20,10 @@ public final class Arrays {
         return copyOfRange(values, fromIndex, toIndexExclusive);
     }
 
+    public static int[] slice(final int[] values, final int fromIndex, final int toIndexExclusive) {
+        return copyOfRange(values, fromIndex, toIndexExclusive);
+    }
+
     public static long[] slice(final long[] values, final int fromIndex, final int toIndexExclusive) {
         return copyOfRange(values, fromIndex, toIndexExclusive);
     }
@@ -39,6 +43,10 @@ public final class Arrays {
             }
         }
         return -1;
+    }
+
+    public static boolean contains(final int[] values, final int value) {
+        return indexOf(values, value) != -1;
     }
 
     public static int indexOf(final char[] values, final char value) {

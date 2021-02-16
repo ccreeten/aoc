@@ -1,14 +1,14 @@
 package go.solve.it.util;
 
-public class Functions {
+public final class Functions {
 
     @FunctionalInterface
-    public interface IntToLongBinaryOperator {
+    public interface BinaryIntToLongFunction {
         long apply(int left, int right);
     }
 
     @FunctionalInterface
-    public interface IntToCharBinaryOperator {
+    public interface BinaryIntToCharFunction {
         char apply(int left, int right);
     }
 }

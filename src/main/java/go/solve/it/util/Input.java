@@ -14,6 +14,10 @@ public final class Input {
         return stream(lines(resourceName)).map(String::toCharArray).toArray(char[][]::new);
     }
 
+    public static String line(final String resourceName) {
+        return lines(resourceName)[0];
+    }
+
     public static String[] lines(final String resourceName) {
         try (var lines = new BufferedReader(new InputStreamReader(read(resourceName))).lines()) {
             return lines.toArray(String[]::new);

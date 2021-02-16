@@ -1,7 +1,7 @@
 package go.solve.it;
 
 import go.solve.it.util.Arrays;
-import go.solve.it.util.Functions.IntToCharBinaryOperator;
+import go.solve.it.util.Functions.BinaryIntToCharFunction;
 import go.solve.it.util.Input;
 
 import java.util.HashSet;
@@ -172,7 +172,7 @@ public final class Day20 {
             return transform(grid.length, (row, col) -> grid[row][grid.length - col - 1]);
         }
 
-        private Tile transform(final int sideLength, final IntToCharBinaryOperator update) {
+        private Tile transform(final int sideLength, final BinaryIntToCharFunction update) {
             final var newGrid = new char[sideLength][sideLength];
             streamPositions(newGrid).forEachOrdered((row, col) -> newGrid[row][col] = update.apply(row, col));
             return Tile.create(id(), newGrid);
