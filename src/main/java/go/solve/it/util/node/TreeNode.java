@@ -18,6 +18,10 @@ public final class TreeNode<T> extends Node<TreeNode<T>, T> {
         return new TreeNode<T>().name(name);
     }
 
+    public static <T> TreeNode<T> withValue(final T value) {
+        return new TreeNode<T>().value(value);
+    }
+
     @Override
     protected TreeNode<T> self() {
         return this;
