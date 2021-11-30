@@ -1,8 +1,10 @@
 package go.solve.it.util.container;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 
 public final class Collectionsβ {
 
@@ -38,8 +40,8 @@ public final class Collectionsβ {
     }
 
     public static <T> List<T> concat(final T head, final List<? extends T> tail) {
-        final var result = new ArrayList<T>(tail);
-        result.add(head);
+        final var result = new ArrayList<T>(List.of(head));
+        result.addAll(tail);
         return result;
     }
 
@@ -62,9 +64,24 @@ public final class Collectionsβ {
         return result;
     }
 
+    public static <T> List<T> difference(final List<? extends T> left, T right) {
+        final var result = new ArrayList<T>(left);
+        result.removeAll(List.of(right));
+        return result;
+    }
+
     public static <T> Set<T> difference(final Set<? extends T> left, final Set<? extends T> right) {
         final var result = new HashSet<T>(left);
         result.removeAll(right);
         return result;
+    }
+
+    public static <T> List<List<T>> permutations(final List<? extends T> values) {
+        if (values.size() == 1) {
+            return List.of(new ArrayList<>(values));
+        }
+        return values.stream()
+                .flatMap(value -> permutations(difference(values, value)).stream().map(tail -> concat(value, tail)))
+                .collect(toList());
     }
 }

@@ -3,6 +3,7 @@ package go.solve.it.y2020;
 import go.solve.it.util.input.Input;
 
 import static go.solve.it.util.container.Arraysβ.contains;
+import static go.solve.it.util.primitive.Ints.ints;
 import static java.util.Arrays.copyOfRange;
 import static java.util.Arrays.stream;
 
@@ -41,7 +42,7 @@ public final class Day23 {
         }
         var cup = cups[0];
         for (var round = 0; round < rounds; round++) {
-            final var nextThree = new int[]{links[cup], links[links[cup]], links[links[links[cup]]]};
+            final var nextThree = ints(links[cup], links[links[cup]], links[links[links[cup]]]);
             var destination = wrappedIndex(cup - 2, cups) + 1;
             while (contains(nextThree, destination)) {
                 destination = wrappedIndex(destination - 2, cups) + 1;

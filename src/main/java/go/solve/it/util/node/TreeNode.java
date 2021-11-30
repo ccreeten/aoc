@@ -39,8 +39,16 @@ public final class TreeNode<T> extends Node<TreeNode<T>, T> {
         return 1 + children.stream().mapToInt(TreeNode::size).sum();
     }
 
+    public TreeNode<T> child(final int index) {
+        return children.get(index);
+    }
+
     public boolean hasChildren() {
         return !children.isEmpty();
+    }
+
+    public TreeNode<T> get(final Predicate<? super TreeNode<T>> predicate) {
+        return find(predicate).orElseThrow();
     }
 
     public Optional<TreeNode<T>> find(final Predicate<? super TreeNode<T>> predicate) {
