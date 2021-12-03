@@ -2,6 +2,7 @@ package go.solve.it.util.container;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import static java.lang.System.arraycopy;
@@ -70,6 +71,10 @@ public final class Arraysβ {
         return -1;
     }
 
+    public static int sum(final int... values) {
+        return IntStream.of(values).sum();
+    }
+
     public static long sum(final long... values) {
         return LongStream.of(values).sum();
     }
@@ -93,6 +98,14 @@ public final class Arraysβ {
         }
         if (from < values.length - 1) {
             result.add(copyOfRange(values, from, values.length));
+        }
+        return result;
+    }
+
+    public static int[] reverse(final int... values) {
+        final var result = new int[values.length];
+        for (var i = 0; i < values.length; i++) {
+            result[values.length - i - 1] = values[i];
         }
         return result;
     }

@@ -43,6 +43,10 @@ public final class Positions {
             return new Position2D(x, y);
         }
 
+        public static Position2D atOrigin() {
+            return Position2D.of(0, 0);
+        }
+
         @Override
         public Position2D add(final Position2D other) {
             return Position2D.of(x() + other.x(), y() + other.y());
@@ -83,9 +87,17 @@ public final class Positions {
             return new Position3D(x, y, z);
         }
 
+        public static Position3D atOrigin() {
+            return Position3D.of(0, 0, 0);
+        }
+
         @Override
         public Position3D add(final Position3D other) {
             return Position3D.of(x() + other.x(), y() + other.y(), z() + other.z());
+        }
+
+        public Position3D multiply(final int value) {
+            return Position3D.of(x() * value, y() * value, z() * value);
         }
     }
 

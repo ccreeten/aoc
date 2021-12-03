@@ -41,6 +41,10 @@ public sealed class Tuple<L, R> permits Tuple.IntTuple, Tuple.LongTuple {
         return new Tuple<>(mapping.apply(head), tail);
     }
 
+    public <T> Tuple<L, T> mapTail(final Function<? super R, ? extends T> mapping) {
+        return new Tuple<>(head, mapping.apply(tail));
+    }
+
     public static final class IntTuple extends Tuple<Integer, Integer> {
 
         IntTuple(final int head, final int tail) {

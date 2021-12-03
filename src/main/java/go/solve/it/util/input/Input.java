@@ -31,8 +31,12 @@ public final class Input {
     }
 
    public static int[] ints(final String resourceName) {
-        return stream(lines(resourceName)[0].split(",")).mapToInt(Integer::parseInt).toArray();
+       return stream(lines(resourceName)).mapToInt(Integer::parseInt).toArray();
    }
+
+    public static int[] intsInBase(final String resourceName, final int radix) {
+        return stream(lines(resourceName)).mapToInt(line -> Integer.parseInt(line, radix)).toArray();
+    }
 
     public static int[] ints(final String resourceName, final String delimiter) {
         return stream(line(resourceName).split(delimiter)).mapToInt(Integer::parseInt).toArray();

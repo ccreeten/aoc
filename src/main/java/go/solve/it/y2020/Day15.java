@@ -13,8 +13,8 @@ import static java.util.stream.IntStream.range;
 public final class Day15 {
 
     public static void main(final String... args) {
-        System.out.println(part1(Input.ints("y2020/day15/input")));
-        System.out.println(part2(Input.ints("y2020/day15/input")));
+        System.out.println(part1(Input.ints("y2020/day15/input", ",")));
+        System.out.println(part2(Input.ints("y2020/day15/input", ",")));
     }
 
     private static long part1(final int... startingNumbers) {
