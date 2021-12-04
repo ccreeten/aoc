@@ -10,6 +10,10 @@ import static java.util.stream.IntStream.rangeClosed;
 
 public final class Positions {
 
+    public static Stream<Position2D> generateFor(final int[][] grid) {
+        return generate2D(IntRange.between(0, grid[0].length - 1), IntRange.between(0, grid.length - 1));
+    }
+
     public static Stream<Position2D> generate2D(final IntRange xRange, final IntRange yRange) {
         return rangeClosed(xRange.from(), xRange.toInclusive())
                 .mapToObj(x -> rangeClosed(yRange.from(), yRange.toInclusive())

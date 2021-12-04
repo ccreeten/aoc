@@ -5,8 +5,8 @@ import go.solve.it.util.input.Input;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import static go.solve.it.util.container.Arraysβ.split;
 import static go.solve.it.util.math.Constraints.is;
-import static go.solve.it.util.stream.Streams.split;
 import static go.solve.it.util.stream.Streams.stream;
 import static java.lang.Long.parseLong;
 import static java.util.stream.Collectors.joining;

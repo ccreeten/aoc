@@ -10,10 +10,10 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import static go.solve.it.util.container.Arraysβ.slice;
+import static go.solve.it.util.container.Arraysβ.split;
 import static go.solve.it.util.container.Collectionsβ.difference;
 import static go.solve.it.util.stream.BiStream.streamPositions;
 import static go.solve.it.util.stream.Streams.concat;
-import static go.solve.it.util.stream.Streams.split;
 import static go.solve.it.util.string.Regex.findNext;
 import static go.solve.it.util.string.Strings.reverse;
 import static java.lang.Long.parseLong;

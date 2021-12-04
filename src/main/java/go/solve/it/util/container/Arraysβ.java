@@ -1,13 +1,20 @@
 package go.solve.it.util.container;
 
+import go.solve.it.util.function.Functions;
+import go.solve.it.util.stream.Streams;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongBinaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
+import static java.lang.Math.min;
 import static java.lang.System.arraycopy;
-import static java.util.Arrays.copyOf;
-import static java.util.Arrays.copyOfRange;
+import static java.util.Arrays.*;
+import static java.util.function.Function.identity;
 import static java.util.stream.IntStream.range;
 
 public final class Arraysβ {
@@ -108,5 +115,38 @@ public final class Arraysβ {
             result[values.length - i - 1] = values[i];
         }
         return result;
+    }
+
+    public static Stream<int[]> rows(final int[][] grid) {
+        return Streams.stream(grid);
+    }
+
+    public static Stream<int[]> columns(final int[][] grid) {
+        return range(0, grid[0].length).mapToObj(columnIndex -> {
+            final var column = new int[grid.length];
+            for (var rowIndex = 0; rowIndex < column.length; rowIndex++) {
+                column[rowIndex] = grid[rowIndex][columnIndex];
+            }
+            return  column;
+        });
+    }
+
+    public static <T> Stream<Stream<T>> split(final T[] elements, final Predicate<? super T> splitOn) {
+        return Collectionsβ.split(asList(elements), splitOn);
+    }
+
+    // pairwise operation except for self
+    public static LongStream pairWise(final long[] values, final LongBinaryOperator mapping) {
+        return range(0, values.length)
+                .mapToObj(
+                        left -> range(0, values.length)
+                                .filter(right -> left != right)
+                                .mapToLong(right -> mapping.applyAsLong(values[left], values[right]))
+                )
+                .flatMapToLong(identity());
+    }
+
+    public static LongStream zip(final int[] left, final int[] right, final Functions.BinaryIntToLongFunction function) {
+        return range(0, min(left.length, right.length)).mapToLong(index -> function.apply(left[index], right[index]));
     }
 }

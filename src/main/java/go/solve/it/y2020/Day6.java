@@ -5,8 +5,8 @@ import go.solve.it.util.input.Input;
 
 import java.util.Set;
 
+import static go.solve.it.util.container.Arraysβ.split;
 import static go.solve.it.util.container.Collectionsβ.setOf;
-import static go.solve.it.util.stream.Streams.split;
 import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.joining;
 

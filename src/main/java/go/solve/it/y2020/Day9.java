@@ -4,8 +4,8 @@ import go.solve.it.util.input.Input;
 
 import java.util.TreeSet;
 
+import static go.solve.it.util.container.Arraysβ.pairWise;
 import static go.solve.it.util.container.Arraysβ.slice;
-import static go.solve.it.util.stream.Streams.pairWise;
 
 public final class Day9 {
 

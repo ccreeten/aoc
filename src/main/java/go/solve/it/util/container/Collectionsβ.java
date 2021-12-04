@@ -1,6 +1,8 @@
 package go.solve.it.util.container;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -82,5 +84,18 @@ public final class Collectionsβ {
         return values.stream()
                 .flatMap(value -> permutations(difference(values, value)).stream().map(tail -> concat(value, tail)))
                 .collect(toList());
+    }
+
+    public static <T> Stream<Stream<T>> split(final Iterable<? extends T> elements, final Predicate<? super T> splitOn) {
+        final List<List<T>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        elements.forEach(element -> {
+            if (splitOn.test(element)) {
+                result.add(new ArrayList<>());
+                return;
+            }
+            result.get(result.size() - 1).add(element);
+        });
+        return result.stream().map(Collection::stream);
     }
 }

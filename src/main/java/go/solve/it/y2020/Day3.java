@@ -2,8 +2,8 @@ package go.solve.it.y2020;
 
 import go.solve.it.util.input.Input;
 
+import static go.solve.it.util.container.Arraysβ.zip;
 import static go.solve.it.util.primitive.Ints.ints;
-import static go.solve.it.util.stream.Streams.zip;
 import static java.util.Arrays.stream;
 
 public final class Day3 {
