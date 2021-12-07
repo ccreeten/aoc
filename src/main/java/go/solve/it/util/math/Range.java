@@ -1,8 +1,14 @@
 package go.solve.it.util.math;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.IntPredicate;
+import java.util.stream.Stream;
 
+import static java.lang.Math.abs;
 import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.iterate;
 
 public sealed class Range<T extends Comparable<T>> permits Range.IntRange {
 
@@ -18,8 +24,18 @@ public sealed class Range<T extends Comparable<T>> permits Range.IntRange {
         return new IntRange(from, toInclusive);
     }
 
+    public boolean isIncreasing() {
+        return from.compareTo(toInclusive) < 0;
+    }
+
+    public boolean isDecreasing() {
+        return from.compareTo(toInclusive) > 0;
+    }
+
     public boolean contains(final T value) {
-        return value.compareTo(from) >= 0 && value.compareTo(toInclusive) <= 0;
+        return isIncreasing()
+                ? value.compareTo(from) >= 0 && value.compareTo(toInclusive) <= 0
+                : value.compareTo(toInclusive) >= 0 && value.compareTo(from) <= 0;
     }
 
     public boolean containsAny(final T... values) {
@@ -40,12 +56,19 @@ public sealed class Range<T extends Comparable<T>> permits Range.IntRange {
             return from;
         }
 
-        public  int toInclusive() {
+        public int toInclusive() {
             return toInclusive;
         }
 
-        public  int size() {
-            return toInclusive() - from();
+        public int size() {
+            return abs(toInclusive() - from());
+        }
+
+        public Stream<Integer> values() {
+            return (isIncreasing()
+                    ? iterate(from(), value -> value <= toInclusive(), value -> value + 1)
+                    : iterate(from(), value -> value >= toInclusive(), value -> value - 1))
+                    .boxed();
         }
     }
 }

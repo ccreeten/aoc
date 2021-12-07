@@ -1,5 +1,6 @@
 package go.solve.it.util.stream;
 
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
@@ -22,5 +23,10 @@ public final class Streams {
     @SafeVarargs
     public static <T> Stream<T> concat(final Stream<T> left, final T... right) {
         return Stream.concat(left, Stream.of(right));
+    }
+
+    public static <L, R, T> Stream<T> zip(final Stream<L> left, final Stream<R> right, final BiFunction<? super L, ? super R, ? extends T> zipper) {
+        final var rights = right.iterator();
+        return left.takeWhile(__ -> rights.hasNext()).map(l -> zipper.apply(l, rights.next()));
     }
 }
