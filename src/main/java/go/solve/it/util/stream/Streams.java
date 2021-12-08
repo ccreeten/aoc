@@ -1,6 +1,5 @@
 package go.solve.it.util.stream;
 
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;

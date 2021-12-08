@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static go.solve.it.util.container.Collectionsβ.copy;
-import static go.solve.it.util.stream.Collectors.toDeque;
+import static go.solve.it.util.stream.Collectorsβ.toDeque;
 import static go.solve.it.util.string.Regex.findAll;
 import static go.solve.it.util.string.Regex.findNext;
 import static java.lang.Long.parseLong;

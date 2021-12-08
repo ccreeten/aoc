@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.IntStream.range;
@@ -16,6 +17,10 @@ public final class BiStream<L, R> {
 
     private BiStream(final Stream<Tuple<L, R>> delegate) {
         this.delegate = delegate;
+    }
+
+    public static <L, R> BiStream<L, R> zip(final Stream<? extends L> left, final Stream<? extends R> right) {
+        return new BiStream<>(Streams.zip(left, right, Tuple::of));
     }
 
     public static <K, V> BiStream<K, V> biStream(final Map<? extends K, ? extends V> map) {
@@ -60,5 +65,9 @@ public final class BiStream<L, R> {
 
     public void forEachOrdered(final BiConsumer<? super L, ? super R> handler) {
         delegate.forEachOrdered(tuple -> handler.accept(tuple.head(), tuple.tail()));
+    }
+
+    public Map<L, R> toMap() {
+        return delegate.collect(Collectors.toMap(Tuple::head, Tuple::tail));
     }
 }

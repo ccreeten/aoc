@@ -4,7 +4,6 @@ import go.solve.it.util.container.Tuple.IntTuple;
 import go.solve.it.util.input.Input;
 import go.solve.it.util.math.LineSegment2D;
 import go.solve.it.util.math.Positions.Position2D;
-import go.solve.it.util.stream.Streams;
 
 import java.util.function.Predicate;
 import java.util.stream.Stream;

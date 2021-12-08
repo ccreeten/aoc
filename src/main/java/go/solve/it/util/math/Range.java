@@ -1,13 +1,10 @@
 package go.solve.it.util.math;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.IntPredicate;
 import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
 import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.iterate;
 
 public sealed class Range<T extends Comparable<T>> permits Range.IntRange {
