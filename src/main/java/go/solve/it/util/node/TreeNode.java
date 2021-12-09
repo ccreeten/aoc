@@ -11,7 +11,7 @@ public final class TreeNode<T> extends Node<TreeNode<T>, T> {
     private List<TreeNode<T>> children = new ArrayList<>();
 
     public static <T> TreeNode<T> empty() {
-        return new TreeNode<T>();
+        return new TreeNode<>();
     }
 
     public static <T> TreeNode<T> withName(final String name) {

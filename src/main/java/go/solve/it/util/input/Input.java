@@ -14,6 +14,12 @@ public final class Input {
         return stream(lines(resourceName)).map(String::toCharArray).toArray(char[][]::new);
     }
 
+    public static int[][] intGrid(final String resourceName) {
+        return stream(lines(resourceName))
+                .map(line -> stream(line.split("")).mapToInt(Integer::parseInt).toArray())
+                .toArray(int[][]::new);
+    }
+
     public static String line(final String resourceName) {
         return lines(resourceName)[0];
     }

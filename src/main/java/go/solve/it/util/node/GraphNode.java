@@ -1,12 +1,17 @@
 package go.solve.it.util.node;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
 public final class GraphNode<T> extends Node<GraphNode<T>, T> {
 
     private List<GraphNode<T>> neighbours = new ArrayList<>();
+
+    public static <T> GraphNode<T> empty() {
+        return new GraphNode<>();
+    }
 
     public static <T> GraphNode<T> withName(final String name) {
         return new GraphNode<T>().name(name);

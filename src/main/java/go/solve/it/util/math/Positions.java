@@ -51,6 +51,18 @@ public final class Positions {
             return Position2D.of(0, 0);
         }
 
+        public boolean exists(final int[][] grid) {
+            return y() >= 0 && x() >= 0 && y() < grid.length && x() < grid[y()].length;
+        }
+
+        public void set(final int[][] grid, final int value) {
+            grid[y()][x()] = value;
+        }
+
+        public int get(final int[][] grid) {
+            return grid[y()][x()];
+        }
+
         @Override
         public Position2D add(final Position2D other) {
             return Position2D.of(x() + other.x(), y() + other.y());
