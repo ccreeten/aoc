@@ -2,85 +2,83 @@ package go.solve.it.y2021;
 
 import go.solve.it.util.input.Input;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Map;
+import java.util.Set;
+
+import static java.util.Arrays.stream;
+import static java.util.function.Predicate.not;
 
 public final class Day10 {
+
+    private static final Set<Character> OPEN = Set.of('{', '[', '(', '<');
+    private static final Map<Character, Character> PAIRS = Map.of(
+            '}', '{',
+            ']', '[',
+            ')', '(',
+            '>', '<'
+    );
+    private static final Map<Character, Character> REVERSE_PAIRS = Map.of(
+            '{', '}',
+            '[', ']',
+            '(', ')',
+            '<', '>'
+    );
 
     public static void main(final String... args) {
         System.out.println(part1(Input.lines("y2021/day10/input")));
         System.out.println(part2(Input.lines("y2021/day10/input")));
     }
 
-    private static long part1(final String[] lines) {
-        long sum = 0;
-        Set<Character> open = Set.of('{', '[', '(', '<');
-        Map<Character, Integer> p = Map.of(
-                ')', 3,
-                ']', 57,
-                '}', 1197,
-                '>',25137);
-        Map<Character, Character> cs = Map.of(
-                '}', '{',
-                ']', '[',
-                ')', '(',
-                '>','<');
-        l: for (final String line : lines) {
-            Deque<Character> stack = new ArrayDeque<>();
-            for (final char c : line.toCharArray()) {
-                if (open.contains(c)) {
-                    stack.push(c);
+    private static long part1(final String... lines) {
+        final var points = Map.of(
+                ')', 3L,
+                ']', 57L,
+                '}', 1197L,
+                '>', 25137L
+        );
+        return stream(lines).mapToLong(line -> {
+            final var stack = new ArrayDeque<Character>();
+            for (final var character : line.toCharArray()) {
+                if (OPEN.contains(character)) {
+                    stack.push(character);
                 } else {
-                    if (stack.isEmpty() || cs.get(c) != stack.pop()) {
-                        sum += p.get(c);
-                        continue l;
+                    if (stack.isEmpty() || PAIRS.get(character) != stack.pop()) {
+                        return points.get(character);
                     }
                 }
             }
-        }
-        return sum;
+            return 0;
+        }).sum();
     }
 
-    private static long part2(final String[] lines) {
-        long sum = 0;
-        Set<Character> open = Set.of('{', '[', '(', '<');
-        Map<Character, Integer> p = Map.of(
-                ')', 1,
-                ']', 2,
-                '}', 3,
-                '>',4);
-        Map<Character, Character> cs = Map.of(
-                '}', '{',
-                ']', '[',
-                ')', '(',
-                '>','<');
-        Map<Character, Character> css = Map.of(
-                '{', '}',
-                '[', ']',
-                '(', ')',
-                '<','>');
-        List<Long> scores= new ArrayList<>();
-        l: for (final String line : lines) {
-            long score = 0;
-            Deque<Character> stack = new ArrayDeque<>();
-            for (final char c : line.toCharArray()) {
-                if (open.contains(c)) {
-                    stack.push(c);
-                } else {
-                    if (stack.isEmpty() || cs.get(c) != stack.pop()) {
-//                        sum += p.get(c);
-                        continue l;
-                    }
+
+    private static long part2(final String... lines) {
+        final var points = Map.of(
+                ')', 1L,
+                ']', 2L,
+                '}', 3L,
+                '>', 4L
+        );
+        final var scores = stream(lines).map(line -> {
+            final var stack = new ArrayDeque<Character>();
+            for (final var character : line.toCharArray()) {
+                if (OPEN.contains(character)) {
+                    stack.push(character);
+                    continue;
+                }
+                if (stack.isEmpty() || PAIRS.get(character) != stack.pop()) {
+                    return new ArrayDeque<Character>();
                 }
             }
-            while(!stack.isEmpty()) {
-                score *= 5;
-                score += p.get(css.get(stack.pop()));
-            }
-            scores.add(score);
-        }
-        Collections.sort(scores);
+            return stack;
+        })
+        .filter(not(Deque::isEmpty))
+        .mapToLong(stack -> stack.stream().reduce(0L, (score, character) -> score * 5L + points.get(REVERSE_PAIRS.get(character)), Long::sum))
+        .sorted()
+        .toArray();
 
-        return scores.get(scores.size() / 2);
+        return scores[scores.length / 2];
     }
-
 }

@@ -1,5 +1,6 @@
 package go.solve.it.util.container;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 public sealed class Tuple<L, R> permits Tuple.IntTuple, Tuple.LongTuple {
@@ -61,6 +62,21 @@ public sealed class Tuple<L, R> permits Tuple.IntTuple, Tuple.LongTuple {
 
         public IntTuple tail(final int value) {
             return new IntTuple(head(), value);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            return obj instanceof IntTuple && (Objects.equals(head(), ((IntTuple) obj).head()) && Objects.equals(tail(), ((IntTuple) obj).tail()));
+        }
+
+        @Override
+        public int hashCode() {
+            return head() * 31  + tail();
+        }
+
+        @Override
+        public String toString() {
+            return "("+head()+","+tail()+")";
         }
     }
 

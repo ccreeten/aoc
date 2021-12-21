@@ -23,7 +23,7 @@ public final class BiStream<L, R> {
         return new BiStream<>(Streams.zip(left, right, Tuple::of));
     }
 
-    public static <K, V> BiStream<K, V> biStream(final Map<? extends K, ? extends V> map) {
+    public static <K, V> BiStream<K, V> of(final Map<? extends K, ? extends V> map) {
         return new BiStream<>(map.entrySet().stream().map(entry -> Tuple.of(entry.getKey(), entry.getValue())));
     }
 

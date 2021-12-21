@@ -53,6 +53,12 @@ public final class Collectionsβ {
         return result;
     }
 
+    public static <T> Set<T> intersection(final List<? extends T> left, final List<? extends T> right) {
+        final var result = new LinkedHashSet<T>(left);
+        result.retainAll(right);
+        return result;
+    }
+
     public static <T> Set<T> intersection(final Set<? extends T> left, final Set<? extends T> right) {
         final var result = new HashSet<T>(left);
         result.retainAll(right);

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static go.solve.it.util.stream.BiStream.biStream;
+import static go.solve.it.util.stream.BiStream.of;
 import static go.solve.it.util.string.Regex.findAll;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
@@ -45,7 +45,7 @@ public final class Day24 {
         final var tileCounts = stream(stepList)
                 .map(steps -> findAll(steps, "(ne|se|sw|nw|e|w)").stream().map(DELTAS::get).reduce(CENTER, Position3D::add))
                 .collect(groupingBy(identity(), counting()));
-        return biStream(tileCounts).filter((tile, count) -> count % 2 == 1).lefts().collect(toSet());
+        return of(tileCounts).filter((tile, count) -> count % 2 == 1).lefts().collect(toSet());
     }
 
     private static Set<Position3D> executeFlips(final Set<Position3D> blackTiles, final int iterations) {

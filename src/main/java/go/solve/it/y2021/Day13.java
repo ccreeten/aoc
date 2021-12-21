@@ -7,7 +7,7 @@ import go.solve.it.util.math.Positions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static go.solve.it.util.math.Positions.*;
+import static go.solve.it.util.math.Positions.Position2D;
 import static java.util.Arrays.stream;
 
 public final class Day13 {
