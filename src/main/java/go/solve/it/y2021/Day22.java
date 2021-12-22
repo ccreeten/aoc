@@ -2,9 +2,6 @@ package go.solve.it.y2021;
 
 import go.solve.it.util.container.Tuple;
 import go.solve.it.util.input.Input;
-import go.solve.it.util.math.Positions;
-import go.solve.it.util.math.Positions.Position3D;
-import go.solve.it.util.math.Range.IntRange;
 import go.solve.it.util.math.Range.LongRange;
 
 import java.util.HashSet;
@@ -23,33 +20,23 @@ public final class Day22 {
     }
 
     private static long part1(final String... lines) {
-        final var cubes = new HashSet<Position3D>();
-        stream(lines).forEach(line -> {
-                    final var numbers = findAll(line, "(-?\\d+)").stream().mapToInt(Integer::parseInt).toArray();
-                    final var xRange = IntRange.between(max(numbers[0], -50), min(numbers[1], 50));
-                    final var yRange = IntRange.between(max(numbers[2], -50), min(numbers[3], 50));
-                    final var zRange = IntRange.between(max(numbers[4], -50), min(numbers[5], 50));
-                    final var on = line.startsWith("on");
-                    Positions.generate3D(xRange, yRange, zRange).forEach(cube -> {
-                        if (on) {
-                            cubes.add(cube);
-                        } else {
-                            cubes.remove(cube);
-                        }
-                    });
-                }
-        );
-        return cubes.size();
+        return extracted(-50, 50, lines);
     }
 
     private static long part2(final String... lines) {
+        return extracted(Long.MIN_VALUE, Long.MAX_VALUE, lines);
+    }
+
+    private static long extracted(final long min, final long max, final String[] lines) {
         return stream(lines).map(line -> {
                     final var numbers = findAll(line, "(-?\\d+)").stream().mapToLong(Long::parseLong).toArray();
-                    final var xRange = LongRange.between(numbers[0], numbers[1]);
-                    final var yRange = LongRange.between(numbers[2], numbers[3]);
-                    final var zRange = LongRange.between(numbers[4], numbers[5]);
-                    return Tuple.of(Cube.spanning(xRange, yRange, zRange), line.startsWith("on"));
+                    final var xRange = LongRange.between(max(numbers[0], min), min(numbers[1], max));
+                    final var yRange = LongRange.between(max(numbers[2], min), min(numbers[3], max));
+                    final var zRange = LongRange.between(max(numbers[4], min), min(numbers[5], max));
+                    final var spanning = Cube.spanning(xRange, yRange, zRange);
+                    return Tuple.of(spanning, line.startsWith("on"));
                 })
+                .filter(cube -> cube.head().isValid())
                 .reduce((Set<Cube>) new HashSet<Cube>(), (cubes, cube) -> merge(cubes, cube.head(), cube.tail()), (l, r) -> l)
                 .stream()
                 .mapToLong(Cube::size)
@@ -88,7 +75,7 @@ public final class Day22 {
         // 'top' slice
         result.add(Cube.spanning(xOverlap, LongRange.between(r.yRange().toInclusive() + 1, l.yRange().toInclusive()), zOverlap));
         // remove all for which max > min
-        result.removeIf(cube -> cube.xRange().isDecreasing() || cube.yRange().isDecreasing() || cube.zRange().isDecreasing());
+        result.removeIf(cube -> !cube.isValid());
         return result;
     }
 
@@ -104,6 +91,10 @@ public final class Day22 {
 
         public long size() {
             return xRange().size() * yRange().size() * zRange().size();
+        }
+
+        public boolean isValid() {
+            return !(xRange().isDecreasing() || yRange().isDecreasing() || zRange().isDecreasing());
         }
     }
 }
